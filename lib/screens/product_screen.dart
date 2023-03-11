@@ -13,7 +13,6 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductsService>(context);
-
     // return _ProductsScreenBody(productService: productService);
     return ChangeNotifierProvider(
       create: (_) => ProductFormProvider(productService.selectedProduct),

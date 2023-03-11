@@ -37,21 +37,19 @@ class ProductImage extends StatelessWidget {
           ]);
 
   Widget getImage(String? picture) {
+    print(picture);
     if (picture == null)
       return Image(
         image: AssetImage("assets/no-image.png"),
         fit: BoxFit.cover,
       );
-    if (picture.startsWith("htttp"))
+    if (picture.startsWith("http"))
       return FadeInImage(
         placeholder: AssetImage("assets/jar-loading.gif"),
         image: NetworkImage(url!),
         fit: BoxFit.cover,
       );
 
-    return Image.file(
-      File(picture),
-      fit: BoxFit.cover,
-    );
+    return Image.file(File(picture), fit: BoxFit.cover);
   }
 }
