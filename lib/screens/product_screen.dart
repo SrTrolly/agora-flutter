@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:productos_app/helpers/hola_mundo.dart';
 import 'package:productos_app/providers/product_form_provider.dart';
 import 'package:productos_app/services/services.dart';
 import 'package:productos_app/ui/input_decorations.dart';
@@ -32,6 +33,22 @@ class _ProductsScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productForm = Provider.of<ProductFormProvider>(context);
+
+    const platform =
+        const MethodChannel('com.example.productos_app/MainActivity');
+
+// Invoca un método en Java y espera su resultado
+    Future<void> getNativeString() async {
+      try {
+        final String result = await platform.invokeMethod('getSaludos');
+        print(result);
+
+        // return result;
+      } on PlatformException catch (e) {
+        print(e.toString());
+        // return "Error: '${e.message}'.";
+      }
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -71,6 +88,18 @@ class _ProductsScreenBody extends StatelessWidget {
                           size: 40,
                           color: Colors.white,
                         ))),
+                Positioned(
+                    bottom: 60,
+                    right: 20,
+                    child: IconButton(
+                        onPressed: () async {
+                          await getNativeString();
+                        },
+                        icon: Icon(
+                          Icons.javascript,
+                          size: 40,
+                          color: Colors.white,
+                        ))),
               ],
             ),
             _ProductForm(),
@@ -97,6 +126,11 @@ class _ProductsScreenBody extends StatelessWidget {
       ),
     );
   }
+
+  // Invoca el método `getNativeString` definido en la respuesta anterior
+  // void _getNativeString() async {
+  //   await platform.invokeMethod('getNativeString');
+  // }
 }
 
 class _ProductForm extends StatelessWidget {

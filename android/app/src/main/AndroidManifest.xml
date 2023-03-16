@@ -38,5 +38,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            <meta-data
+            android:name="flutter.plugin.my_plugin"
+            android:value="com.example.productos_app." />
     </application>
 </manifest>
